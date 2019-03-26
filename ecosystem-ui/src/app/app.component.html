@@ -1,0 +1,70 @@
+<!-- NG-ZORRO -->
+
+<nz-layout>
+  <nz-sider [nzTheme]="'light'" [nzWidth]="256">
+    <a class="main-link" routerLink="/">
+      <img
+        class="logo"
+        src="/assets/flink_squirrel_500.png"
+        alt="flink squirrel"
+      />
+      <h1>
+        Apache Flink
+        <br />
+        Community Packages
+      </h1>
+    </a>
+    <ul nz-menu nzMode="inline" [nzInlineCollapsed]="collapsed">
+      <li nz-submenu [nzOpen]="true">
+        <span title>
+          Categories
+        </span>
+        <ul>
+          <li nz-menu-item routerLinkActive="ant-menu-item-selected">
+            <a routerLink="/categories/connectors" routerLinkActive="active">
+              Connectors
+            </a>
+          </li>
+          <li nz-menu-item routerLinkActive="ant-menu-item-selected">
+            <a routerLink="/categories/metrics" routerLinkActive="active">
+              Metrics
+            </a>
+          </li>
+          <li nz-menu-item routerLinkActive="ant-menu-item-selected">
+            <a routerLink="/categories/tools" routerLinkActive="active">
+              Tools
+            </a>
+          </li>
+          <li nz-menu-item routerLinkActive="ant-menu-item-selected">
+            <a
+              routerLink="/categories/machine-learning"
+              routerLinkActive="active"
+            >
+              Machine Learning
+            </a>
+          </li>
+          <li nz-menu-item routerLinkActive="ant-menu-item-selected">
+            <a routerLink="/categories/languages" routerLinkActive="active">
+              Languages
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </nz-sider>
+  <nz-layout>
+    <nz-header>
+      <a href="#" class="github">Log in with Github</a>
+      <nz-input-group [nzSuffix]="suffixIconSearch">
+        <input type="text" nz-input placeholder="search" />
+      </nz-input-group>
+      <ng-template #suffixIconSearch>
+        <i nz-icon type="search"></i>
+      </ng-template>
+    </nz-header>
+    <nz-content>
+      <router-outlet></router-outlet>
+    </nz-content>
+    <nz-footer>Footer</nz-footer>
+  </nz-layout>
+</nz-layout>

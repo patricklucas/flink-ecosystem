@@ -8,9 +8,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PackagesComponent } from './pages/packages/packages.component';
 import { PackageComponent } from './pages/package/package.component';
+import { SearchComponent } from './pages/search/search.component';
+import { PackageListComponent } from './share/package-list/package-list.component';
 
 @NgModule({
-  declarations: [AppComponent, PackagesComponent, PackageComponent],
+  declarations: [AppComponent, PackagesComponent, PackageComponent, SearchComponent, PackageListComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

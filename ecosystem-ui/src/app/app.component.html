@@ -1,5 +1,3 @@
-<!-- NG-ZORRO -->
-
 <nz-layout>
   <nz-sider [nzTheme]="'light'" [nzWidth]="256">
     <a class="main-link" routerLink="/">
@@ -56,7 +54,12 @@
     <nz-header>
       <a href="#" class="github">Log in with Github</a>
       <nz-input-group [nzSuffix]="suffixIconSearch">
-        <input type="text" nz-input placeholder="search" />
+        <input
+          type="text"
+          nz-input
+          placeholder="search"
+          (keydown.enter)="handleSearch($event)"
+        />
       </nz-input-group>
       <ng-template #suffixIconSearch>
         <i nz-icon type="search"></i>

@@ -13,4 +13,9 @@ export class PackagesService {
 
     return this.http.get<PackageList>(url);
   }
+
+  getSearchPackages(query: string): Observable<PackageList> {
+    const url = `http://localhost:3000/api/v1/search?query=${query}`;
+    return this.http.get<PackageList>(url);
+  }
 }

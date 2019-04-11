@@ -1,5 +1,5 @@
-const Hapi = require("hapi");
-const mocker = require("mocker-data-generator").default;
+const Hapi = require('hapi');
+const mocker = require('mocker-data-generator').default;
 
 const random = outOf => {
   return Math.floor(Math.random() * outOf + 1);
@@ -23,13 +23,13 @@ const random = outOf => {
 
 const package = {
   id: { incrementalId: 0 },
-  name: { faker: "commerce.productName" },
-  description: { faker: "lorem.paragraph" },
-  readme: { faker: "lorem.paragraphs(4)" },
-  image: { faker: "image.image" },
-  website: { faker: "internet.url" },
-  repository: { faker: "internet.url" },
-  license: { faker: "commerce.productAdjective" },
+  name: { faker: 'commerce.productName' },
+  description: { faker: 'lorem.paragraph' },
+  readme: { faker: 'lorem.paragraphs(4)' },
+  image: { faker: 'image.image' },
+  website: { faker: 'internet.url' },
+  repository: { faker: 'internet.url' },
+  license: { faker: 'commerce.productAdjective' },
   commentsCount: { faker: 'random.number({"min": 20, "max": 100})' },
   comments: [
     {
@@ -54,45 +54,56 @@ const package = {
       length: random(10),
     },
   ],
-  added: { faker: "date.past" },
+  added: { faker: 'date.past' },
 };
 
 const init = async () => {
   const server = Hapi.server({
     port: 3000,
-    host: "localhost",
+    host: 'localhost',
     routes: {
       cors: true,
     },
   });
 
   server.route({
-    method: "GET",
-    path: "/api/v1/packages/{category?}",
+    method: 'GET',
+    path: '/api/v1/packages/{category?}',
     handler: (request, h) => {
       return mocker()
-        .schema("packages", package, 15)
+        .schema('packages', package, 15)
         .build()
         .then(data => ({ items: data.packages }));
     },
   });
 
   server.route({
-    method: "GET",
-    path: "/api/v1/package/{name}",
+    method: 'GET',
+    path: '/api/v1/search',
     handler: (request, h) => {
       return mocker()
-        .schema("package", package, 1)
+        .schema('packages', package, 5)
+        .build()
+        .then(data => ({ items: data.packages }));
+    },
+  });
+
+  server.route({
+    method: 'GET',
+    path: '/api/v1/package/{name}',
+    handler: (request, h) => {
+      return mocker()
+        .schema('package', package, 1)
         .build()
         .then(data => data.package[0]);
     },
   });
 
   await server.start();
-  console.log("Server running on %s", server.info.uri);
+  console.log('Server running on %s', server.info.uri);
 };
 
-process.on("unhandledRejection", err => {
+process.on('unhandledRejection', err => {
   console.log(err);
   process.exit(1);
 });

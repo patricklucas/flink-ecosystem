@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { PackagesComponent } from './pages/packages/packages.component';
 import { PackageComponent } from './pages/package/package.component';
+import { SearchComponent } from './pages/search/search.component';
 
 const routes: Routes = [
   {
@@ -15,6 +16,10 @@ const routes: Routes = [
   {
     path: 'package/:package',
     component: PackageComponent,
+  },
+  {
+    path: 'search',
+    component: SearchComponent,
   },
   { path: 'categories', redirectTo: 'packages', pathMatch: 'full' },
   { path: '**', redirectTo: 'packages', pathMatch: 'full' },

@@ -27,7 +27,11 @@ const package = {
   name: { faker: 'commerce.productName' },
   description: { faker: 'lorem.paragraph' },
   readme: { faker: 'lorem.paragraphs(4)' },
-  image: { faker: 'image.image' },
+  image: {
+    function() {
+      return this.faker.image.image().replace('http://', 'https://');
+    },
+  },
   website: { faker: 'internet.url' },
   repository: { faker: 'internet.url' },
   license: { faker: 'commerce.productAdjective' },

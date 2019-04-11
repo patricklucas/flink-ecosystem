@@ -1,4 +1,5 @@
 const Hapi = require('hapi');
+const Path = require('path');
 const mocker = require('mocker-data-generator').default;
 
 const random = outOf => {
@@ -63,39 +64,52 @@ const init = async () => {
     host: 'localhost',
     routes: {
       cors: true,
+      files: { relativeTo: Path.join(__dirname, 'dist/flink-ecosystem') },
     },
+    router: { stripTrailingSlash: true },
   });
+
+  await server.register(require('inert'));
 
   server.route({
     method: 'GET',
     path: '/api/v1/packages/{category?}',
-    handler: (request, h) => {
-      return mocker()
+    handler: () =>
+      mocker()
         .schema('packages', package, 15)
         .build()
-        .then(data => ({ items: data.packages }));
-    },
+        .then(data => ({ items: data.packages })),
   });
 
   server.route({
     method: 'GET',
     path: '/api/v1/search',
-    handler: (request, h) => {
-      return mocker()
+    handler: () =>
+      mocker()
         .schema('packages', package, 5)
         .build()
-        .then(data => ({ items: data.packages }));
-    },
+        .then(data => ({ items: data.packages })),
   });
 
   server.route({
     method: 'GET',
     path: '/api/v1/package/{name}',
-    handler: (request, h) => {
-      return mocker()
+    handler: () =>
+      mocker()
         .schema('package', package, 1)
         .build()
-        .then(data => data.package[0]);
+        .then(data => data.package[0]),
+  });
+
+  server.route({
+    method: 'GET',
+    path: '/{path*}',
+    handler: {
+      directory: {
+        path: '.',
+        listing: false,
+        index: ['index.html'],
+      },
     },
   });
 

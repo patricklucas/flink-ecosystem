@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   title = 'flink-ecosystem';
+  collapsed = false;
 
   constructor(private router: Router) {}
 
